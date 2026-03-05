@@ -1,6 +1,3 @@
-/* ============================================================
-   CSS VARIABLES
-   ============================================================ */
 :root {
     --sand: #F4E1C1;
     --teal: #008080;
@@ -28,9 +25,7 @@
     --transition: 150ms ease;
 }
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
+/* Reset */
 *,
 *::before,
 *::after {
@@ -59,9 +54,7 @@ body {
     background-position: center center;
 }
 
-/* ============================================================
-   LAYOUT — PAGE CENTER
-   ============================================================ */
+/* Layout */
 .page-center {
     display: flex;
     flex-direction: column;
@@ -69,9 +62,7 @@ body {
     justify-content: center;
 }
 
-/* ============================================================
-   CARD
-   ============================================================ */
+/* Card */
 .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -82,9 +73,6 @@ body {
     overflow: hidden;
 }
 
-/* ============================================================
-   CARD HEADER
-   ============================================================ */
 .card-header {
     padding: 2rem 2rem 1.25rem;
     border-bottom: 1px solid var(--border);
@@ -113,9 +101,7 @@ body {
     font-size: 0.85rem;
 }
 
-/* ============================================================
-   SECTIONS
-   ============================================================ */
+/* Section */
 .section {
     padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--border);
@@ -134,9 +120,7 @@ body {
     margin-bottom: 0.85rem;
 }
 
-/* ============================================================
-   UPLOAD
-   ============================================================ */
+/* Upload */
 .upload-label {
     display: block;
     cursor: pointer;
@@ -204,9 +188,7 @@ input[type="file"] {
     white-space: nowrap;
 }
 
-/* ============================================================
-   ERROR MESSAGE
-   ============================================================ */
+/* Error message */
 .error-msg {
     margin-top: 0.75rem;
     padding: 0.7rem 1rem;
@@ -220,9 +202,7 @@ input[type="file"] {
     gap: 0.4rem;
 }
 
-/* ============================================================
-   PREVIEW
-   ============================================================ */
+/* Preview */
 .preview-section {
     background: var(--card-inner);
 }
@@ -245,9 +225,7 @@ input[type="file"] {
     object-fit: contain;
 }
 
-/* ============================================================
-   CONTROLS
-   ============================================================ */
+/* Controls */
 .controls-section {
     background: var(--card);
 }
@@ -352,9 +330,7 @@ input[type="file"] {
     cursor: pointer;
 }
 
-/* ============================================================
-   BUTTONS
-   ============================================================ */
+/* Buttons */
 .button-row {
     display: flex;
     gap: 0.75rem;
@@ -386,7 +362,7 @@ input[type="file"] {
     outline-offset: 2px;
 }
 
-/* Primary — teal */
+/* Primary - teal */
 .btn-primary {
     background: var(--teal);
     color: #fff;
@@ -415,9 +391,7 @@ input[type="file"] {
     color: var(--text);
 }
 
-/* ============================================================
-   PALETTE / SWATCHES
-   ============================================================ */
+/* Palette */
 .palette-section {
     background: var(--card-inner);
 }
@@ -480,7 +454,7 @@ input[type="file"] {
     line-height: 1.3;
 }
 
-/* "Copied!" mini badge on swatch */
+/* "Copied!" mini badge */
 .swatch-copied-badge {
     position: absolute;
     top: 6px;
@@ -503,9 +477,7 @@ input[type="file"] {
     transform: translateY(0);
 }
 
-/* ============================================================
-   GLOBAL TOAST
-   ============================================================ */
+/* Global toast */
 .toast {
     position: fixed;
     bottom: 1.5rem;
@@ -531,9 +503,7 @@ input[type="file"] {
     transform: translateX(-50%) translateY(0);
 }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
+/* Footer */
 .app-footer {
     width: 100%;
     max-width: 680px;
@@ -567,9 +537,7 @@ input[type="file"] {
     display: block;
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
+/* Responsive */
 @media (max-width: 520px) {
     body {
         padding: 1rem 0.5rem 3rem;

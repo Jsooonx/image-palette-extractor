@@ -1,4 +1,4 @@
-// ── DOM References ─────────────────────────────────────────
+// DOM References
 const fileInput = document.getElementById('file-input');
 const uploadArea = document.getElementById('upload-area');
 const errorMsg = document.getElementById('error-msg');
@@ -14,21 +14,20 @@ const canvas = document.getElementById('offscreen-canvas');
 const ctx = canvas.getContext('2d');
 const toast = document.getElementById('toast');
 
-// ── State ──────────────────────────────────────────────────
-let currentImage = null; // HTMLImageElement or null
+// State
+let currentImage = null;
 let toastTimer = null;
 
-// ── Utility: Convert RGB components to uppercase HEX string ─
+// Convert RGB components to uppercase HEX string
 function rgbToHex(r, g, b) {
     return '#' + [r, g, b]
         .map(v => v.toString(16).padStart(2, '0').toUpperCase())
         .join('');
 }
 
-// ── Utility: Determine black or white text based on luminance ─
+// Determine black or white text based on luminance.
 // Using the WCAG relative luminance formula.
 function getTextColor(r, g, b) {
-    // Linearise sRGB channels
     const lin = [r, g, b].map(v => {
         const s = v / 255;
         return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
@@ -37,7 +36,7 @@ function getTextColor(r, g, b) {
     return L > 0.179 ? '#1A1209' : '#FAFAFA';
 }
 
-// ── Utility: Show global toast notification ─────────────────
+// Show global toast notification
 function showToast(msg, duration = 2000) {
     clearTimeout(toastTimer);
     toast.textContent = msg;
@@ -45,7 +44,7 @@ function showToast(msg, duration = 2000) {
     toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
 }
 
-// ── Utility: Show / hide error message ──────────────────────
+// Utility: Show / hide error message
 function showError(msg) {
     errorMsg.textContent = '⚠ ' + msg;
     errorMsg.hidden = false;
@@ -56,7 +55,7 @@ function clearError() {
     errorMsg.hidden = true;
 }
 
-// ── loadImage: validate file and display preview ─────────────
+// loadImage: validate file and display preview
 function loadImage(file) {
     clearError();
 
@@ -89,7 +88,7 @@ function loadImage(file) {
     img.src = url;
 }
 
-// ── extractPalette: main extraction pipeline ─────────────────
+// extractPalette: main extraction pipeline
 //   1. Scale image to offscreen canvas (max 400px)
 //   2. Sample pixels with step stride
 //   3. Skip transparent pixels; soft-skip near-white/near-black
@@ -100,7 +99,7 @@ function loadImage(file) {
 function extractPalette() {
     if (!currentImage) return;
 
-    // ── UX: loading state ────────────────────────────────────
+    // UX: loading state
     extractBtn.textContent = 'Extracting…';
     extractBtn.disabled = true;
 
@@ -132,16 +131,16 @@ function _doExtract() {
     ctx.drawImage(currentImage, 0, 0, cw, ch);
 
     const imageData = ctx.getImageData(0, 0, cw, ch);
-    const data = imageData.data; // Uint8ClampedArray [R,G,B,A, R,G,B,A …]
+    const data = imageData.data;
 
-    // ── Quantization bucket size ─────────────────────────────
+    // Quantization bucket size
     // Rounding each channel to nearest multiple of `bucketStep`
     // gives us ~(256/bucketStep)^3 possible buckets.
     // A value of 24 is a good balance: broad enough to cluster
     // similar shades, fine enough to preserve distinct hues.
     const bucketStep = 24;
 
-    // ── Sampling stride ──────────────────────────────────────
+    // Sampling stride
     // Every `sampleStride`-th pixel is checked (in RGBA units).
     const sampleStride = 5; // samples every 5th pixel
 
@@ -161,7 +160,7 @@ function _doExtract() {
         const maxChannel = Math.max(r, g, b);
         const minChannel = Math.min(r, g, b);
         if (maxChannel > 248 && minChannel > 240) continue; // near-pure white
-        if (maxChannel < 8) continue;                        // near-pure black
+        if (maxChannel < 8) continue;                       // near-pure black
 
         // Quantize channels
         const qr = Math.round(r / bucketStep) * bucketStep;
@@ -180,7 +179,7 @@ function _doExtract() {
     const sorted = Array.from(buckets.values())
         .sort((a, b) => b.count - a.count);
 
-    // ── Uniqueness filter (loose Euclidean distance) ──────────
+    // Uniqueness filter (loose Euclidean distance)
     // Threshold of ~60 in RGB space means we allow visually
     // similar but not identical colors to coexist. This gives
     // gradations and tones their own swatch.
@@ -205,7 +204,7 @@ function _doExtract() {
     renderSwatches(selected);
 }
 
-// ── renderSwatches: build swatch DOM from color array ────────
+// renderSwatches: build swatch DOM from color array
 function renderSwatches(colors) {
     swatchesGrid.innerHTML = '';
 
@@ -239,7 +238,7 @@ function renderSwatches(colors) {
         copiedBadge.textContent = 'Copied!';
         copiedBadge.setAttribute('aria-hidden', 'true');
 
-        // Info block — use a neutral warm background so text is always legible
+        // Info block - use a neutral warm background so text is always legible
         // regardless of swatch color. Text color pulled from luminance calc for
         // future reference, but info panel has its own background.
         const info = document.createElement('div');
@@ -281,7 +280,7 @@ function renderSwatches(colors) {
     paletteSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ── copyToClipboard: write HEX, show per-swatch badge + toast ─
+// copyToClipboard: write HEX, show per-swatch badge + toast
 function copyToClipboard(hex, badgeEl) {
     navigator.clipboard.writeText(hex)
         .then(() => {
@@ -312,7 +311,7 @@ function copyToClipboard(hex, badgeEl) {
         });
 }
 
-// ── clearAll: reset image, preview, palette ──────────────────
+// clearAll: reset image, preview, palette
 function clearAll() {
     currentImage = null;
 
@@ -334,18 +333,18 @@ function clearAll() {
     clearError();
 }
 
-// ── Slider: update live display ──────────────────────────────
+// Slider: update live display
 colorCountEl.addEventListener('input', () => {
     countDisplay.textContent = colorCountEl.value;
 });
 
-// ── File input change ────────────────────────────────────────
+// File input change
 fileInput.addEventListener('change', e => {
     const file = e.target.files[0];
     if (file) loadImage(file);
 });
 
-// ── Upload area: click forwarded to hidden input ─────────────
+// Upload area: click forwarded to hidden input
 uploadArea.addEventListener('click', () => fileInput.click());
 uploadArea.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') {
@@ -354,7 +353,7 @@ uploadArea.addEventListener('keydown', e => {
     }
 });
 
-// ── Drag-and-drop ────────────────────────────────────────────
+// Drag-and-drop
 uploadArea.addEventListener('dragover', e => {
     e.preventDefault();
     uploadArea.classList.add('drag-over');
@@ -371,8 +370,8 @@ uploadArea.addEventListener('drop', e => {
     if (file) loadImage(file);
 });
 
-// ── Extract button ────────────────────────────────────────────
+// Extract button
 extractBtn.addEventListener('click', extractPalette);
 
-// ── Clear button ──────────────────────────────────────────────
+// Clear button
 clearBtn.addEventListener('click', clearAll);
