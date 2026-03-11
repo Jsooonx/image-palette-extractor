@@ -15,6 +15,13 @@ Built using HTML, CSS, and vanilla JavaScript to explore image data processing i
 - Basic color data processing
 - Interactive UI updates
 
+## Preview
+
+
+## Live Page
+
+![View Live Page](https://jsooonx.github.io/image-palette-extractor/)
+
 ## Technologies
 - HTML
 - CSS
