@@ -17,6 +17,7 @@ Built using HTML, CSS, and vanilla JavaScript to explore image data processing i
 
 ## Preview
 
+<img src="assets/palettedemo.gif" width="700">
 
 ## Live Page
 
