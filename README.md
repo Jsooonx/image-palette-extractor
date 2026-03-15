@@ -14,7 +14,7 @@ A simple web application that extracts dominant color palettes from user-uploade
 - Identifies frequently occurring colors to generate a dominant palette
 - Updates the interface dynamically to display the selected colors
 
-## Technica Concepts
+## Technical Concepts
 - DOM manipulation
 - Browser-based file handling
 - Pixel-level RGB data processing
