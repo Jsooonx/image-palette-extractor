@@ -39,4 +39,4 @@ https://jsooonx.github.io/image-palette-extractor/
 - JavaScript
 
 ## Implementation Insight
-This project processes pixel-level RGB data from uploaded images in the browser, then identifies frequently occurring colors to generate a dominant palette dynamically.
+This project processes pixel-level RGB data from uploaded images in the browser, computes frequently occurring color patterns, and dynamically renders a dominant palette using JavaScript and DOM manipulation.
